@@ -1,3 +1,2 @@
-.c9revisions
-ref
-archive
+node_modules/*
+dist/*
