@@ -1,9 +1,12 @@
 {
   "name": "sudokutoolcollection",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "An es6 compatible sudoku generator and parser with emphasis on usability in big projects",
   "main": "dist/sudoku.js",
-  "repository": "git@github.com:lacrioque/sudoku.js.git",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/lacrioque/sudoku.js.git"
+  },
   "author": "Markus Flür <markusfluer@markusfluer.de>",
   "license": "MIT",
   "scripts": {
@@ -23,5 +26,15 @@
   "dependencies": {
     "eslint": "^7.6.0",
     "eslint-plugin-typescript": "^0.14.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/lacrioque/sudoku.js/issues"
+  },
+  "homepage": "https://github.com/lacrioque/sudoku.js#readme",
+  "keywords": [
+    "sudoku",
+    "generator",
+    "solver",
+    "toolbox"
+  ]
 }
