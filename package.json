@@ -1,17 +1,22 @@
 {
-  "name": "SudokuClass",
+  "name": "sudokutoolcollection",
   "version": "0.0.1",
   "description": "An es6 compatible sudoku generator and parser with emphasis on usability in big projects",
-  "main": "dist/index.js",
+  "main": "dist/sudoku.js",
   "repository": "git@github.com:lacrioque/sudoku.js.git",
-  "author": "Markus Flür <Markus.Fluer@db-n.com>",
+  "author": "Markus Flür <markusfluer@markusfluer.de>",
   "license": "MIT",
+  "scripts": {
+    "build-dev": "rollup -c",
+    "build": "rollup -c --environment BUILD:production"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.8.0",
     "@typescript-eslint/parser": "^3.8.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.22.0",
     "rollup": "^2.23.0",
+    "rollup-plugin-terser": "^7.0.0",
     "rollup-plugin-typescript": "^1.0.1",
     "typescript": "^3.9.7"
   },
