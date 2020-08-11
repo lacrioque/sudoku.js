@@ -1,6 +1,6 @@
 {
   "name": "sudokutoolcollection",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An es6 compatible sudoku generator and parser with emphasis on usability in big projects",
   "main": "dist/sudoku.js",
   "repository": {
