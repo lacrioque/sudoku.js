@@ -11,7 +11,7 @@ const plugins = process.env.BUILD === 'production' ? [
 export default {
   input: './src/main.ts',
    output: {
-    file: 'dist/sudoku.js',
+    file: process.env.BUILD === 'production' ? 'dist/sudoku.min.js' : 'dist/sudoku.js',
     format: 'cjs',
     exports: 'default'
   },

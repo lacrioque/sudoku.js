@@ -1,6 +1,6 @@
 {
   "name": "sudokutoolcollection",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An es6 compatible sudoku generator and parser with emphasis on usability in big projects",
   "main": "dist/sudoku.js",
   "repository": {
@@ -12,7 +12,8 @@
   "scripts": {
     "build-dev": "rollup -c",
     "build": "rollup -c --environment BUILD:production",
-    "run-test": "ts-node ./demo/test.ts"
+    "run-test": "ts-node ./demo/test.ts",
+    "prepublish": "npm run build-dev && npm run build"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.8.0",
