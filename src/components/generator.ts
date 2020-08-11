@@ -156,7 +156,7 @@ export default class SudokuGenerator {
         }
     
         // Give up and try a new puzzle
-        return this.generate(difficulty);
+        return this.generate(difficulty,unique,withSolution);
       }
 
       private _force_range (nr: number, max: number, min: number) {
