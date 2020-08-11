@@ -2,13 +2,23 @@ import Sudoku from "./sudoku";
 import isIn from "../utility/isIn";
 
 export default class SudokuGetCandidates {
+    private debug: boolean;
     private instance: Sudoku;
 
-    constructor(instance: Sudoku) {
+    constructor(instance: Sudoku, debug = false) {
+        this.debug = debug;
         this.instance = instance;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    log(...args: Array<any>): void {
+      if(this.debug) {
+        console.log.apply(null, args);
+      }
+    }
+
     get(board:string): Array<string>|boolean {
+      this.log("Getting all candidates");
         /* Return all possible candidatees for each square as a grid of
             candidates, returnning `false` if a contradiction is encountered.
     
@@ -21,10 +31,12 @@ export default class SudokuGetCandidates {
         if (report !== true) {
           throw report;
         }
-    
+        this.log("Board valid");
+
         // Get a candidates map
         const candidates_map = this.map(board);
-    
+        this.log("Current map: ", candidates_map);
+
         // If there's an error, return false
         if (!candidates_map) {
           return false;
@@ -43,6 +55,7 @@ export default class SudokuGetCandidates {
           }
           ++i;
         }
+        this.log("Returned grid: ", rows);
         return rows;
       }
     

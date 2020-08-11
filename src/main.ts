@@ -12,11 +12,11 @@ interface SudokuCollection {
     conversions: typeof conversions;
 }
 
-export default function getSudoku(): SudokuCollection {
-    const instance = new Sudoku();
-    const generator = new SudokuGenerator(instance);
-    const solver = new SudokuSolver(instance);
-    const getCandidates = new SudokuGetCandidates(instance);
+export default function getSudoku(debug=false): SudokuCollection {
+    const instance = new Sudoku(debug);
+    const generator = new SudokuGenerator(instance,debug);
+    const solver = new SudokuSolver(instance,debug);
+    const getCandidates = new SudokuGetCandidates(instance,debug);
     
     return {
         instance,

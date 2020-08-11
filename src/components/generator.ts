@@ -3,17 +3,26 @@ import SudokuGetCandidates from "./get-candidates";
 import SudokuSolver from "./solve";
 
 export default class SudokuGenerator {
+    private debug: boolean;
     private instance: Sudoku;
     private getCandidates: SudokuGetCandidates;
     private solver: SudokuSolver;
 
-    constructor(instance: Sudoku) {
+    constructor(instance: Sudoku, debug=false) {
+        this.debug = debug;
         this.instance = instance;
         this.solver = new SudokuSolver(this.instance);
         this.getCandidates = new SudokuGetCandidates(this.instance);
     }
 
-    generate (difficulty?: string|number, unique = true) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    log(...args: Array<any>): void {
+      if(this.debug) {
+        console.log.apply(null, args);
+      }
+    }
+
+    generate (difficulty?: string|number, unique = true, withSolution=false): string|{board: string; solution: string} {
         /* Generate a new Sudoku puzzle of a particular `difficulty`, e.g.,
     
                 // Generate an "easy" sudoku puzzle
@@ -49,11 +58,13 @@ export default class SudokuGenerator {
         if (typeof difficulty === 'string' || typeof difficulty === 'undefined') {
           difficulty = Sudoku.DIFFICULTY[difficulty] || Sudoku.DIFFICULTY.easy;
         }
-    
+
+        
         // Force difficulty between 17 and 81 inclusive
         difficulty = this._force_range(difficulty as number, Sudoku.NR_SQUARES + 1,
-            Sudoku.MIN_GIVENS);
-    
+          Sudoku.MIN_GIVENS);
+          
+        this.log("Generating game with difficulty of: ", difficulty);
     
         // Get a set of squares and all possible candidates for each square
         let blank_board = '';
@@ -64,17 +75,23 @@ export default class SudokuGenerator {
         if(typeof candidates == "boolean") {
           throw new Error(`Cannot define candidates for ${blank_board}`);
         }
-    
+        this.log("Candidates for blank board: ", candidates);
+        
         // For each item in a shuffled list of squares
         const shuffled_squares = this._shuffle(this.instance.SQUARES);
+        this.log("Shuffled squares: ", shuffled_squares);
         for (const si in shuffled_squares) {
           const square = shuffled_squares[si];
     
-          // If an assignment of a random chioce causes a contradictoin, give
+          // If an assignment of a random chioce causes a contradiction, give
           // up and try again
           const rand_candidate_idx = this._rand_range(candidates[square].length);
           const rand_candidate = candidates[square][rand_candidate_idx];
-          if (this.instance.assign(candidates, square, rand_candidate)) {
+          this.log("Assigning ranom values: ", {
+            rand_candidate_idx, rand_candidate
+          });
+          if (this.instance.assign(candidates, square, rand_candidate) === false) {
+            this.log("Random contradiction found -> exiting");
             break;
           }
     
@@ -87,11 +104,14 @@ export default class SudokuGenerator {
               single_candidates.push(candidates[square]);
             }
           }
-    
+
+          this.log("Single candidates found: ", single_candidates);
+
           // If we have at least difficulty, and the unique candidate count is
           // at least 8, return the puzzle!
           if (single_candidates.length >= difficulty
                         && this._strip_dups(single_candidates).length >= 8) {
+            this.log("Difficulty grade reached, creating board");
             let board = '';
             let givens_idxs = [];
             for (const i in this.instance.SQUARES) {
@@ -103,6 +123,7 @@ export default class SudokuGenerator {
                 board += Sudoku.BLANK_CHAR;
               }
             }
+            this.log("Board created so far: ", board);
     
             // If we have more than `difficulty` givens, remove some random
             // givens until we're down to exactly `difficulty`
@@ -115,10 +136,20 @@ export default class SudokuGenerator {
                                 + board.substr(target + 1);
               }
             }
+
+            this.log("Board created after checking difficulty again: ", board);
     
             // Double check board is solvable
             // TODO: Make a standalone board checker. Solve is expensive.
-            if (this.solver.solve(board)) {
+            const solution = this.solver.solve(board);
+
+            if (typeof solution == "string") {
+              if(withSolution===true) {
+                return {
+                  board,
+                  solution
+                }
+              }
               return board;
             }
           }

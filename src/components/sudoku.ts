@@ -1,6 +1,8 @@
 import isIn from "../utility/isIn";
 
 export default class Sudoku {
+    private debug: boolean;
+
     public static DIGITS = '123456789'; // Allowed sudoku.DIGITS
     public static ROWS = 'ABCDEFGHI'; // Row lables
     public static COLS = Sudoku.DIGITS; // Column lables
@@ -25,13 +27,22 @@ export default class Sudoku {
     public SQUARE_PEERS_MAP: Record<string,unknown>|null = null; // Squares -> peers map
 
 
-    constructor() {
+    constructor(debug=false) {
+      this.debug = debug;
       /* Initialize the Sudoku library (invoked after library load)
         */
       this.SQUARES = this._cross(Sudoku.ROWS, Sudoku.COLS);
       this.UNITS = this._get_all_units(Sudoku.ROWS, Sudoku.COLS);
       this.SQUARE_UNITS_MAP = this._get_square_units_map(this.SQUARES, this.UNITS);
       this.SQUARE_PEERS_MAP = this._get_square_peers_map(this.SQUARES, this.SQUARE_UNITS_MAP);
+    }
+
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    log(...args: Array<any>): void {
+      if(this.debug) {
+        console.log.apply(null, args);
+      }
     }
 
     private _cross(a: string, b:string): Array<string> {
@@ -192,7 +203,7 @@ export default class Sudoku {
     console.log(display_string);
   }
 
-  validate_board(board: string, errorAsCoordinates = false): boolean|{row: number; col: number} {
+  validate_board(board: string, errorAsCoordinates = false): boolean|{row: string; col: number} {
     /* Return if the given `board` is valid or not. If it's valid, return
         true. If it's not, return a string of the reason why it's not.
     */

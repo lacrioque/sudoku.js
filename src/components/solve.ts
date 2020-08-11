@@ -3,12 +3,21 @@ import SudokuGetCandidates from "./get-candidates";
 import isIn from "../utility/isIn";
 
 export default class SudokuSolver {
+    private debug: boolean;
     private instance: Sudoku;
     private getCandidates: SudokuGetCandidates;
 
-    constructor(instance: Sudoku) {
+    constructor(instance: Sudoku, debug=false) {
+        this.debug = debug;
         this.instance = instance;
         this.getCandidates = new SudokuGetCandidates(instance);
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    log(...args: Array<any>): void {
+      if(this.debug) {
+        console.log.apply(null, args);
+      }
     }
 
     public solve (board: string, reverse = false): string|boolean {
