@@ -147,7 +147,7 @@ Board string → coordinated object:
 >>> sudoku().conversions.stringToObject("23.94.67.8..3259149..76.32.1.....7925.321.4864..68.5317..1....96598721433...9...7")
 {
     A1:"2",
-    A2:"3,
+    A2:"3",
     A3:".",
     A4:"9",
     A5:"4",
@@ -171,9 +171,9 @@ Board string → coordinated object:
 Coordinated board object → string:
 
 ```javascript
->>> sudoku().conversions.stringToObject({
+>>> sudoku().conversions.objectToString({
     A1:"2",
-    A2:"3,
+    A2:"3",
     A3:".",
     A4:"9",
     A5:"4",
