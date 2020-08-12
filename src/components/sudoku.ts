@@ -29,7 +29,7 @@ export default class Sudoku {
 
     constructor(debug=false) {
       this.debug = debug;
-      /* Initialize the Sudoku library (invoked after library load)
+      /* Initialize the Sudoku library (invoked after library load)a
         */
       this.SQUARES = this._cross(Sudoku.ROWS, Sudoku.COLS);
       this.UNITS = this._get_all_units(Sudoku.ROWS, Sudoku.COLS);
@@ -241,7 +241,7 @@ export default class Sudoku {
     */
 
     // Grab a list of canidates without 'val'
-    const other_vals = candidates[square].replace(val, '').split("");
+    const other_vals = candidates[square] ? candidates[square].replace(val, '').split("") : [];
 
     // Loop through all other values and eliminate them from the candidates
     // at the current square, and propigate. If at any point we get a
