@@ -5,6 +5,19 @@ A Sudoku puzzle **generator** and **solver** JavaScript library based on the ama
 
 This is a work in probgress but pretty much completely converted now.
 
+There is an npm package of this library. Install it with:
+
+```
+npm i sudokutoolcollection
+```
+
+Or 
+
+
+```
+yarn add sudokutoolcollection
+```
+
 Intro
 --------------------------------------------------------------------------------
 
