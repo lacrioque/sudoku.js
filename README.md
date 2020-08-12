@@ -1,4 +1,4 @@
-Sudoku.js
+SudokuToolCollection
 ==========
 
 A Sudoku puzzle **generator** and **solver** JavaScript library based on the amazing work of [robatron]: https://github.com/robatron/sudoku.js
