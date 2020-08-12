@@ -21,6 +21,7 @@ export default class Sudoku {
     public static BLANK_BOARD = '.'.repeat(81);
     public static MIN_GIVENS = 17; // Minimum number of givens
     public static NR_SQUARES = 81; // Number of squares
+    public BLOCKS: Array<string[]> = [];
     public SQUARES: Array<string>|null = null; // Square IDs
     public UNITS: Array<string>|null = null; // All units (row, column, or box)
     public SQUARE_UNITS_MAP: Record<string,unknown>|null = null; // Squares -> units map
@@ -35,6 +36,17 @@ export default class Sudoku {
       this.UNITS = this._get_all_units(Sudoku.ROWS, Sudoku.COLS);
       this.SQUARE_UNITS_MAP = this._get_square_units_map(this.SQUARES, this.UNITS);
       this.SQUARE_PEERS_MAP = this._get_square_peers_map(this.SQUARES, this.SQUARE_UNITS_MAP);
+      this.BLOCKS = [
+        this._cross("ABC","123"),
+        this._cross("ABC","456"),
+        this._cross("ABC","789"),
+        this._cross("DEF","123"),
+        this._cross("DEF","456"),
+        this._cross("DEF","789"),
+        this._cross("GHI","123"),
+        this._cross("GHI","456"),
+        this._cross("GHI","789"),
+      ]
     }
 
 

@@ -27,6 +27,7 @@ export default function getSudoku(debug=false): SudokuCollection {
         BLANK_BOARD: Sudoku.BLANK_BOARD,
         MIN_GIVENS: Sudoku.MIN_GIVENS,
         NR_SQUARES: Sudoku.NR_SQUARES,
+        BLOCKS: instance.BLOCKS
     });
     
     return {
