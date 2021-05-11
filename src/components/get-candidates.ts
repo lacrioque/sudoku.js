@@ -17,7 +17,7 @@ export default class SudokuGetCandidates {
       }
     }
 
-    get(board:string): Array<string>|boolean {
+    get(board:string): Array<string[]>|false {
       this.log("Getting all candidates");
         /* Return all possible candidatees for each square as a grid of
             candidates, returnning `false` if a contradiction is encountered.
@@ -43,10 +43,10 @@ export default class SudokuGetCandidates {
         }
     
         // Transform candidates map into grid
-        const rows = [];
+        const rows: string[][] = [];
         let cur_row = [];
         let i = 0;
-        for (const square in Object.keys(candidates_map)) {
+        for (const square of Object.keys(candidates_map)) {
           const candidates = candidates_map[square];
           cur_row.push(candidates);
           if (i % 9 == 8) {
