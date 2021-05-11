@@ -1,8 +1,8 @@
 import Sudoku from "./sudoku";
 
-  const board_string_to_grid = (board_string: string): Array<string> => {
+  const board_string_to_grid = (board_string: string): Array<string[]> => {
     /* Convert a board string to a two-dimensional array  */
-    const rows = [];
+    const rows: string[][] = [];
     const boardStringArray = board_string.split("");
     let cur_row = [];
     for (const i in boardStringArray) {
@@ -14,7 +14,7 @@ import Sudoku from "./sudoku";
     }
     return rows;
   };
-  const board_grid_to_string = (board_grid: Array<string>): string => {
+  const board_grid_to_string = (board_grid: Array<string[]>): string => {
     /* Convert a board grid to a string */
     let board_string = '';
     for (let r = 0; r < 9; ++r) {
